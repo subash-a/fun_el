@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title> Fun_El </title>
     <script src="d3.v3.js"></script>
   </head>
   <body>
+    <style>
+      h1 {
+          text-align:center;
+      }
+
+      div#container {
+          text-align: center;
+      }
+
+      div#data-switcher {
+          text-align:center;
+      }
+
+      svg {
+      border: 1px solid #dedede;
+      background: #f8f8f8;
+      padding:10px;
+      }
+
+      g.x-axis > path.domain, g.y-axis > path.domain {
+      fill: #d8d8d8;
+      }
+
+      g.x-axis > g.tick > text, g.y-axis > g.tick > text {
+      font: bold 12px arial;
+      }
+
+      g.x-axis  g.tick  text {
+      text-anchor: start;
+      }
+    </style>
+    <h1> Funnel Chart </h1>
     <div id="container">
       <svg id="funnel"></svg>
-      <button id="change">Switch</button>
+    </div>
+    <div id="data-switcher">
+        <button id="change">Switch Data</button>
     </div>
     <script src="fun_el.js"></script>
   </body>

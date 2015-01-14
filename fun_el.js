@@ -2,6 +2,7 @@
     var fdata = [[100,80],[80,20],[20,10],[10,10]];
     funnel = {};
     var colors = ["#E8929C","#D292E8","#9792E8","#92DBE8","#92E8CE","#97E892","#D5E892","#E8C392"];
+    var axis_color = "#d8d8d8";
     var chart = function(selection) {
 	selection.each(function(data){
 	    var container = d3.select(this);
@@ -12,7 +13,7 @@
 	    var yScale = d3.scale.linear();
 	    yScale
 		.domain([0,d3.max(data,function(d){return d[0]})])
-		.range([0,200]);
+		.range([200,0]);
 			
 	    var g = container.selectAll("g.funnel").data([data]);
 	    var gEnter = g.enter()
@@ -34,10 +35,12 @@
 		.scale(xScale)
 		.orient("bottom")
 		.tickSize(1);
+
 	    var yAxis = d3.svg.axis()
 		.scale(yScale)
 		.orient("left")
 		.tickSize(1);
+
 	    xGroup.call(xAxis);
 	    yGroup.call(yAxis);
 
@@ -55,8 +58,8 @@
 		.attr("x",function(d,i){return i*xScale(1)})
 		.attr("y",0)
 		.attr("width",10)
-		.attr("height",function(d){return yScale(d[0])})
-		.attr("transform",function(d){return "translate(0,"+ (200 - yScale(d[0])) +")"})
+		.attr("height",function(d){return yScale.range()[0] - yScale(d[0])})
+		.attr("transform",function(d){return "translate(0,"+ yScale(d[0]) +")"})
 	    .attr("fill",function(d,i){return colors[i]});
 
 	    var rectEnter = rectGroup.enter()
@@ -68,8 +71,8 @@
 		.attr("x",function(d,i){return i*xScale(1)})
 		.attr("y",0)
 		.attr("width",10)
-		.attr("height",function(d){return yScale(d[0])})
-		.attr("transform",function(d){return "translate(0,"+ (200 - yScale(d[0])) +")"})
+		.attr("height",function(d){return yScale.range()[0] - yScale(d[0])})
+		.attr("transform",function(d){return "translate(0,"+ (yScale(d[0])) +")"})
 	    .attr("fill",function(d,i){return colors[i]});
 
 	    rectGroup.select("polygon")
